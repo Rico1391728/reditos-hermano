@@ -899,6 +899,9 @@ function capitalPagadoHastaFecha(p, fechaInt) {
     var intAplicado = D.historial.filter(function(h) { return h.prestamoId === p.id && h.pagoId === pg.id; }).reduce(function(s,h) { return s + historialCobrado(h); },0);
     aplicado += Math.max(0, Number(pg.monto || 0) + Number(pg.descuento || 0) - intAplicado);
   });
+  if (p.fechaUltimoAbonoCapital && p.fechaUltimoAbonoCapital <= fechaInt) {
+    aplicado = Math.max(aplicado, Number(p.capitalPagado || 0));
+  }
   return aplicado;
 }
 
